@@ -5,9 +5,9 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
-path = "C:\\chromedriver.exe"
-s = Service(path)
-driver = webdriver.Chrome(service=s)
+service = Service('path/to/chromedriver')
+options = webdriver.ChromeOptions()
+driver = webdriver.Chrome(service=service, options=options)
 
 
 def test_api_result_matches_web_result():
@@ -34,10 +34,12 @@ def test_api_result_matches_web_result():
 
     #Проверка статусов и ответов api и web
     assert api_status_code == web_status_code
+    print("Статусы совпадают")
 
     sorted_body_api = json.dumps(api_body, sort_keys=True)
     sorted_body_web = json.dumps(json.loads(web_body), sort_keys=True)
     assert sorted_body_api == sorted_body_web
+    print("Тело ответа совпадает")
 
 
 
